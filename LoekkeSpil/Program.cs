@@ -10,6 +10,9 @@ namespace LoekkeSpil
         static int roundPoints;
         static List<Player> players;
 
+        /// <summary>
+        /// Creates players with names
+        /// </summary>
         private static void CreatePlayers()
         {
             Console.Clear();
@@ -36,15 +39,21 @@ namespace LoekkeSpil
             }
         }
 
+        /// <summary>
+        /// Displays each players points in descending order
+        /// </summary>
         private static void DisplayScoreBoard()
         {
-            Console.WriteLine("Point:");
-            for(int i = 0; i < players.Count; i++)
+            List<Player> standings = players.OrderByDescending(player => player.Points).ToList();
+            foreach(Player player in standings)
             {
-                Console.WriteLine($"{players[i].Name}" + ": " + players[i].Points);
+                Console.WriteLine($"{player.Name}: {player.Points}");
             }
         }
 
+        /// <summary>
+        /// Rolls a random number between 1 and 6
+        /// </summary>
         private static void RollDice()
         {
             Random dice = new Random();
@@ -64,6 +73,9 @@ namespace LoekkeSpil
             }
         }
 
+        /// <summary>
+        /// Passes the turn to the next player
+        /// </summary>
         private static void PassTurn()
         {
             roundPoints = 0;
@@ -79,6 +91,9 @@ namespace LoekkeSpil
             }
         }
 
+        /// <summary>
+        /// Allows players to play their turn
+        /// </summary>
         private static void Turn()
         {
             Console.Clear();
@@ -100,11 +115,7 @@ namespace LoekkeSpil
                             Console.Clear();
                             Console.WriteLine($"{players[currentPlayer].Name} har vundet!");
                             Console.WriteLine("Endelige resultater:");
-                            List<Player> finalStandings = players.OrderByDescending(player => player.Points).ToList();
-                            foreach(Player player in finalStandings)
-                            {
-                                Console.WriteLine($"{player.Name}: {player.Points}");
-                            }
+                            DisplayScoreBoard();
                             Console.ReadLine();
                             CreatePlayers();
                             break;
