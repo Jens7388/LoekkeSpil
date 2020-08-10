@@ -15,15 +15,25 @@ namespace LoekkeSpil
             Console.Clear();
             Console.WriteLine("Hvor mange spillere er med?");
             int.TryParse(Console.ReadLine(), out int noOfPlayers);
-            players = new List<Player>();
-            for(int i = 1; i <= noOfPlayers; i++)
+            if(noOfPlayers > 0)
             {
-                Console.Write($"Indtast spiller {i}'s navn: ");
-                string nameInput = Console.ReadLine();
-                Player player = new Player(nameInput, 0);
-                players.Add(player);
+                players = new List<Player>();
+                for(int i = 1; i <= noOfPlayers; i++)
+                {
+                    Console.Write($"Indtast spiller {i}'s navn: ");
+                    string nameInput = Console.ReadLine();
+                    Player player = new Player(nameInput, 0);
+                    players.Add(player);
+                }
+                currentPlayer = 0;
+                Turn();
             }
-            currentPlayer = 0;
+            else
+            {
+                Console.WriteLine("Ugyldigt antal spillere! Prøv igen");
+                Console.ReadLine();
+                CreatePlayers();
+            }
         }
 
         private static void DisplayScoreBoard()
@@ -44,7 +54,7 @@ namespace LoekkeSpil
                 Console.WriteLine("\nDu slog 1!, Du mister din tur, og alle dine point..");
                 players[currentPlayer].Points = 0;
                 Console.ReadLine();
-                PassTurn();         
+                PassTurn();
             }
             else
             {
@@ -57,7 +67,7 @@ namespace LoekkeSpil
         private static void PassTurn()
         {
             roundPoints = 0;
-            if(currentPlayer < players.Count -1)
+            if(currentPlayer < players.Count - 1)
             {
                 currentPlayer++;
                 Turn();
@@ -73,46 +83,46 @@ namespace LoekkeSpil
         {
             Console.Clear();
             DisplayScoreBoard();
-            Console.WriteLine($"\n{players[currentPlayer].Name}'s tur, tryk y for at slå med terningen, tryk n for at sende turen videre.");        
+            Console.WriteLine($"\n{players[currentPlayer].Name}'s tur, tryk y for at slå med terningen, tryk n for at sende turen videre.");
             while(true)
             {
                 string input = Console.ReadKey().Key.ToString();
-                if(input.ToLower() == "y")
+                switch(input.ToLower())
                 {
-                    RollDice();
-                }
-                else if(input.ToLower() == "n")
-                {
-                    Console.WriteLine($"\nDu har scoret {roundPoints} point i denne runde");
-                    if(players[currentPlayer].Points >= 100)
-                    {
-                        Console.Clear();
-                        Console.WriteLine($"{players[currentPlayer].Name} har vundet!");
-                        Console.WriteLine("Endelige resultater:");
-                        List<Player> finalStandings = players.OrderByDescending(player => player.Points).ToList();
-                        foreach(Player player in finalStandings)
+                    case "y":
+                        RollDice();
+                        break;
+
+                    case "n":
+                        Console.WriteLine($"\nDu har scoret {roundPoints} point i denne runde");
+                        if(players[currentPlayer].Points >= 100)
                         {
-                            Console.WriteLine($"{player.Name}: {player.Points}");
+                            Console.Clear();
+                            Console.WriteLine($"{players[currentPlayer].Name} har vundet!");
+                            Console.WriteLine("Endelige resultater:");
+                            List<Player> finalStandings = players.OrderByDescending(player => player.Points).ToList();
+                            foreach(Player player in finalStandings)
+                            {
+                                Console.WriteLine($"{player.Name}: {player.Points}");
+                            }
+                            Console.ReadLine();
+                            CreatePlayers();
+                            break;
                         }
                         Console.ReadLine();
-                        Main();
+                        PassTurn();
                         break;
-                    }
-                    Console.ReadLine();
-                    PassTurn();
-                    break;
+
+                    default:
+                        Console.WriteLine("Ugyldigt input! Prøv igen");
+                        break;
                 }
-                else
-                {
-                    Console.WriteLine("Ugyldigt input! Prøv igen");
-                }
-            }        
+            }
         }
 
         static void Main()
         {
             CreatePlayers();
-            Turn();
         }
     }
 }

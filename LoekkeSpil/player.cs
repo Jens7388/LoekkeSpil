@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace LoekkeSpil
+﻿namespace LoekkeSpil
 {
     class Player
     {
