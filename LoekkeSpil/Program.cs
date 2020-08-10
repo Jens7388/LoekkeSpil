@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace LoekkeSpil
 {
@@ -86,7 +87,14 @@ namespace LoekkeSpil
                     Console.WriteLine($"\nDu har scoret {roundPoints} point i denne runde");
                     if(players[currentPlayer].Points >= 100)
                     {
-                        Console.WriteLine("Tillykke! Du har vundet");
+                        Console.Clear();
+                        Console.WriteLine($"{players[currentPlayer].Name} har vundet!");
+                        Console.WriteLine("Endelige resultater:");
+                        List<Player> finalStandings = players.OrderByDescending(player => player.Points).ToList();
+                        foreach(Player player in finalStandings)
+                        {
+                            Console.WriteLine($"{player.Name}: {player.Points}");
+                        }
                         Console.ReadLine();
                         Main();
                         break;
