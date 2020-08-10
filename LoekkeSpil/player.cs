@@ -4,17 +4,17 @@ using System.Text;
 
 namespace LoekkeSpil
 {
-    class player
+    class Player
     {
         protected string name;
         protected int points;
 
-        public player(string name, int points)
+        public Player(string name, int points)
         {
             Name = name;
             Points = points;
         }
-        public string Name
+        public virtual string Name
         {
             get
             {
@@ -25,7 +25,7 @@ namespace LoekkeSpil
                 name = value;
             }
         }
-        public int Points
+        public virtual int Points
         {
             get
             {
