@@ -11,7 +11,7 @@ namespace LoekkeSpil
         static List<Player> players;
 
         /// <summary>
-        /// Creates players with names
+        /// Creates objects of the player class
         /// </summary>
         private static void CreatePlayers()
         {
@@ -29,7 +29,7 @@ namespace LoekkeSpil
                     players.Add(player);
                 }
                 currentPlayer = 0;
-                Turn();
+                PlayTurn();
             }
             else
             {
@@ -82,19 +82,19 @@ namespace LoekkeSpil
             if(currentPlayer < players.Count - 1)
             {
                 currentPlayer++;
-                Turn();
+                PlayTurn();
             }
             else
             {
                 currentPlayer = 0;
-                Turn();
+                PlayTurn();
             }
         }
 
         /// <summary>
         /// Allows players to play their turn
         /// </summary>
-        private static void Turn()
+        private static void PlayTurn()
         {
             Console.Clear();
             DisplayScoreBoard();
