@@ -18,7 +18,10 @@
             }
             set
             {
-                name = value;
+                if(name != value)
+                {
+                    name = value;
+                }
             }
         }
         public virtual int Points
@@ -29,7 +32,10 @@
             }
             set
             {
-                points = value;
+                if(points != value)
+                {
+                    points = value;
+                }
             }
         }
     }
