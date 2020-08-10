@@ -60,7 +60,7 @@ namespace LoekkeSpil
             int diceRoll = dice.Next(1, 7);
             if(diceRoll == 1)
             {
-                Console.WriteLine("\nDu slog 1!, Du mister din tur, og alle dine point..");
+                Console.WriteLine("\nDu slog 1! Du mister din tur, og alle dine point..");
                 players[currentPlayer].Points = 0;
                 Console.ReadLine();
                 PassTurn();
@@ -97,6 +97,7 @@ namespace LoekkeSpil
         private static void PlayTurn()
         {
             Console.Clear();
+            Console.WriteLine("Point:");
             DisplayScoreBoard();
             Console.WriteLine($"\n{players[currentPlayer].Name}'s tur, tryk y for at slå med terningen, tryk n for at sende turen videre.");
             while(true)
